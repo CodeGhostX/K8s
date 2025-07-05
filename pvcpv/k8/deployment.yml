@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pvcpv-deployment
+  labels:
+    app: pvcpv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pvcpv
+  template:
+    metadata:
+      labels:
+        app: pvcpv
+    spec:
+      containers:
+      - name: pvcpv
+        image: pvcpv
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: data-volume
+          mountPath: /usr/src/app/data
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: pvcpv-pvc
