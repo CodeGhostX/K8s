@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  labels:
+    app: mern-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mern-db
+  template:
+    metadata:
+      labels:
+        app: mern-db
+    spec:
+      containers:
+      - name: mern-db
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mern-secret
+              key: MONGODB_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mern-secret
+              key: MONGODB_PASSWORD

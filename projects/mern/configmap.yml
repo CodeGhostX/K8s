@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mern-configmap
+data:
+  MONGO_URL: mongo-service
+  
