@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: client-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: client
   ports:
     - protocol: TCP
       port: 5173
       targetPort: 5173
-      nodePort: 30001
